@@ -1,0 +1,22 @@
+---
+title: "Music Insights"
+author: "Kyle Kirk"
+output: html_notebook
+---
+
+
+We need to use the tidyverse for our data and manipulation
+
+```{r}
+install.packages("tidyverse")
+library("tidyverse")
+
+survey <- read_csv("https://raw.githubusercontent.com/introdsci/MusicSurvey/master/music-survey.csv")
+preferences <- read_csv("https://raw.githubusercontent.com/introdsci/MusicSurvey/master/preferences-survey.csv")
+```
+
+```{r}
+
+colnames(survey[colnames(survey)=="What is your pseudonym?"] <- "pseudonym")
+
+```
