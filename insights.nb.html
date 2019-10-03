@@ -1765,14 +1765,93 @@ preferences &lt;- read_csv(&quot;https://raw.githubusercontent.com/introdsci/Mus
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5jb2xuYW1lcyhzdXJ2ZXlbY29sbmFtZXMoc3VydmV5KT09XCJXaGF0IGlzIHlvdXIgcHNldWRvbnltP1wiXSA8LSBcInBzZXVkb255bVwiKVxuXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcInRpZHl2ZXJzZVwiKVxubGlicmFyeShcInRpZHlyXCIpXG5saWJyYXJ5KFwiZHBseXJcIilcbmxpYnJhcnkoXCJyZWFkclwiKVxubGlicmFyeShcInN0cmluZ3JcIilcbmBgYCJ9 -->
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;tidyr&quot;)
+library(&quot;dplyr&quot;)
+library(&quot;readr&quot;)
+library(&quot;stringr&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>We’re going to be renaming all the columns to a consistent format.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29sbmFtZXMoc3VydmV5KVtjb2xuYW1lcyhzdXJ2ZXkpPT1cIlRpbWVzdGFtcFwiXSA8LSBcInRpbWVfc3VibWl0dGVkXCJcbmNvbG5hbWVzKHN1cnZleSlbY29sbmFtZXMoc3VydmV5KT09XCJGaXJzdCwgd2UgYXJlIGdvaW5nIHRvIGNyZWF0ZSBhIHBzZXVkb255bSBmb3IgeW91IHRvIGtlZXAgdGhpcyBzdXJ2ZXkgYW5vbnltb3VzIChtb3JlIG9yIGxlc3MpLiBXaGljaCBwc2V1ZG9ueW0gZ2VuZXJhdG9yIHdvdWxkIHlvdSBwcmVmZXI/XCJdIDwtIFwicHNldWRvbnltX2dlbmVyYXRvclwiXG5jb2xuYW1lcyhzdXJ2ZXkpW2NvbG5hbWVzKHN1cnZleSk9PVwiV2hhdCBpcyB5b3VyIHBzZXVkb255bT9cIl0gPC0gXCJwc2V1ZG9ueW1cIlxuY29sbmFtZXMoc3VydmV5KVtjb2xuYW1lcyhzdXJ2ZXkpPT1cIlNleFwiXSA8LSBcInNleFwiXG5jb2xuYW1lcyhzdXJ2ZXkpW2NvbG5hbWVzKHN1cnZleSk9PVwiTWFqb3JcIl0gPC0gXCJhY2FkZW1pY19tYWpvclwiXG5jb2xuYW1lcyhzdXJ2ZXkpW2NvbG5hbWVzKHN1cnZleSk9PVwiQWNhZGVtaWMgWWVhclwiXSA8LSBcImFjYWRlbWljX2xldmVsXCJcbmNvbG5hbWVzKHN1cnZleSlbY29sbmFtZXMoc3VydmV5KT09XCJZZWFyIHlvdSB3ZXJlIGJvcm4gKFlZWVkpXCJdIDwtIFwieWVhcl9ib3JuXCJcbmNvbG5hbWVzKHN1cnZleSlbY29sbmFtZXMoc3VydmV5KT09XCJXaGljaCBtdXNpY2FsIGluc3RydW1lbnRzL3RhbGVudHMgZG8geW91IHBsYXk/IChTZWxlY3QgYWxsIHRoYXQgYXBwbHkpXCJdIDwtIFwiaW5zdHVybWVudF9saXN0XCJcbmNvbG5hbWVzKHN1cnZleSlbY29sbmFtZXMoc3VydmV5KT09XCJBcnRpc3RcIl0gPC0gXCJmYXZvcml0ZV9zb25nX2FydGlzdFwiXG5jb2xuYW1lcyhzdXJ2ZXkpW2NvbG5hbWVzKHN1cnZleSk9PVwiU29uZ1wiXSA8LSBcImZhdm9yaXRlX3NvbmdcIlxuY29sbmFtZXMoc3VydmV5KVtjb2xuYW1lcyhzdXJ2ZXkpPT1cIkxpbmsgdG8gc29uZyAob24gWW91dHViZSBvciBWaW1lbylcIl0gPC0gXCJmYXZvcml0ZV9zb25nX2xpbmtcIlxuYGBgIn0= -->
+<pre class="r"><code>colnames(survey)[colnames(survey)==&quot;Timestamp&quot;] &lt;- &quot;time_submitted&quot;
+colnames(survey)[colnames(survey)==&quot;First, we are going to create a pseudonym for you to keep this survey anonymous (more or less). Which pseudonym generator would you prefer?&quot;] &lt;- &quot;pseudonym_generator&quot;
+colnames(survey)[colnames(survey)==&quot;What is your pseudonym?&quot;] &lt;- &quot;pseudonym&quot;
+colnames(survey)[colnames(survey)==&quot;Sex&quot;] &lt;- &quot;sex&quot;
+colnames(survey)[colnames(survey)==&quot;Major&quot;] &lt;- &quot;academic_major&quot;
+colnames(survey)[colnames(survey)==&quot;Academic Year&quot;] &lt;- &quot;academic_level&quot;
+colnames(survey)[colnames(survey)==&quot;Year you were born (YYYY)&quot;] &lt;- &quot;year_born&quot;
+colnames(survey)[colnames(survey)==&quot;Which musical instruments/talents do you play? (Select all that apply)&quot;] &lt;- &quot;insturment_list&quot;
+colnames(survey)[colnames(survey)==&quot;Artist&quot;] &lt;- &quot;favorite_song_artist&quot;
+colnames(survey)[colnames(survey)==&quot;Song&quot;] &lt;- &quot;favorite_song&quot;
+colnames(survey)[colnames(survey)==&quot;Link to song (on Youtube or Vimeo)&quot;] &lt;- &quot;favorite_song_link&quot;</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9yIChpIGluIGNvbG5hbWVzKHByZWZlcmVuY2VzKSl7XG4gIGZvciAoaiBpbiBpKXtcbiAgICBwcmludChpKVxuICB9XG59XG5gYGAifQ== -->
+<pre class="r"><code>for (i in colnames(preferences)){
+  for (j in i){
+    print(i)
+  }
+}</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now we are going to create a seperate table for the Person.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5QZXJzb24gPC0gdGliYmxlKHRpbWU9c3VydmV5JHRpbWVfc3VibWl0dGVkLCBwc2V1ZG9ueW1fZ2VuZXJhdG9yPXN1cnZleSRwc2V1ZG9ueW1fZ2VuZXJhdG9yLCBwc2V1ZG9ueW09c3VydmV5JHBzZXVkb255bSwgc2V4PXN1cnZleSRzZXgsIGFjYWRlbWljX21ham9yPXN1cnZleSRhY2FkZW1pY19tYWpvciwgYWNhZGVtaWNfbGV2ZWw9c3VydmV5JGFjYWRlbWljX2xldmVsLCB5ZWFyX2Jvcm49c3VydmV5JHllYXJfYm9ybilcblxuYGBgIn0= -->
 <pre class="r"><code>
-colnames(survey[colnames(survey)==&quot;What is your pseudonym?&quot;] &lt;- &quot;pseudonym&quot;)
+Person &lt;- tibble(time=survey$time_submitted, pseudonym_generator=survey$pseudonym_generator, pseudonym=survey$pseudonym, sex=survey$sex, academic_major=survey$academic_major, academic_level=survey$academic_level, year_born=survey$year_born)
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>And now a tibble for Favorite Song.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5GYXZvcml0ZV9zb25nIDwtIHRpYmJsZShwc2V1ZG9ueW09c3VydmV5JHBzZXVkb255bSwgc29uZ19hcnRpc3Q9c3VydmV5JGZhdm9yaXRlX3NvbmdfYXJ0aXN0LCBzb25nPXN1cnZleSRmYXZvcml0ZV9zb25nLCBsaW5rPXN1cnZleSRmYXZvcml0ZV9zb25nX2xpbmspXG5cbmBgYCJ9 -->
+<pre class="r"><code>
+Favorite_song &lt;- tibble(pseudonym=survey$pseudonym, song_artist=survey$favorite_song_artist, song=survey$favorite_song, link=survey$favorite_song_link)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>POSIX(ct) -&gt; (EPOCH) POSXI(lt) -&gt; Local Time</p>
+<p>parse_datetime(x, format=“%Y:%M:%D”, )</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3BhcnNlX2RhdGV0aW1lKFBlcnNvbigpXG5gYGAifQ== -->
+<pre class="r"><code>#parse_datetime(Person()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>You can change the levels, as well as assign them.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGV2ZWxzKFBlcnNvbiRhY2FkZW1pY19tYWpvcilcbmBgYCJ9 -->
+<pre class="r"><code>levels(Person$academic_major)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Will print it out</p>
+<p>This will change it so that the lower case information systems will be changed to the upper case one and replace it in the levels as well.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGV2ZWxzKFBlcnNvbiRhY2FkZW1pY19tYWpvcilbbGV2ZWxzKFBlcnNvbiRhY2FkZW1pY19tYWpvcikgPT0gXCJDb21wdXRlciBpbmZvcm1hdGlvbiBzeXN0ZW1zXCJdIDwtIFwiQ29tcHV0ZXIgSW5mb3JtYXRpb24gU3lzdGVtc1wiXG5gYGAifQ== -->
+<pre class="r"><code>levels(Person$academic_major)[levels(Person$academic_major) == &quot;Computer information systems&quot;] &lt;- &quot;Computer Information Systems&quot;</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTXVzaWMgSW5zaWdodHMiCmF1dGhvcjogIkt5bGUgS2lyayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCldlIG5lZWQgdG8gdXNlIHRoZSB0aWR5dmVyc2UgZm9yIG91ciBkYXRhIGFuZCBtYW5pcHVsYXRpb24KCmBgYHtyfQppbnN0YWxsLnBhY2thZ2VzKCJ0aWR5dmVyc2UiKQpsaWJyYXJ5KCJ0aWR5dmVyc2UiKQoKc3VydmV5IDwtIHJlYWRfY3N2KCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vaW50cm9kc2NpL011c2ljU3VydmV5L21hc3Rlci9tdXNpYy1zdXJ2ZXkuY3N2IikKcHJlZmVyZW5jZXMgPC0gcmVhZF9jc3YoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9pbnRyb2RzY2kvTXVzaWNTdXJ2ZXkvbWFzdGVyL3ByZWZlcmVuY2VzLXN1cnZleS5jc3YiKQpgYGAKCmBgYHtyfQoKY29sbmFtZXMoc3VydmV5W2NvbG5hbWVzKHN1cnZleSk9PSJXaGF0IGlzIHlvdXIgcHNldWRvbnltPyJdIDwtICJwc2V1ZG9ueW0iKQoKYGBg</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTXVzaWMgSW5zaWdodHMiCmF1dGhvcjogIkt5bGUgS2lyayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCldlIG5lZWQgdG8gdXNlIHRoZSB0aWR5dmVyc2UgZm9yIG91ciBkYXRhIGFuZCBtYW5pcHVsYXRpb24KCmBgYHtyfQppbnN0YWxsLnBhY2thZ2VzKCJ0aWR5dmVyc2UiKQpsaWJyYXJ5KCJ0aWR5dmVyc2UiKQoKc3VydmV5IDwtIHJlYWRfY3N2KCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vaW50cm9kc2NpL011c2ljU3VydmV5L21hc3Rlci9tdXNpYy1zdXJ2ZXkuY3N2IikKcHJlZmVyZW5jZXMgPC0gcmVhZF9jc3YoImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9pbnRyb2RzY2kvTXVzaWNTdXJ2ZXkvbWFzdGVyL3ByZWZlcmVuY2VzLXN1cnZleS5jc3YiKQpgYGAKCmBgYHtyfQpsaWJyYXJ5KCJ0aWR5dmVyc2UiKQpsaWJyYXJ5KCJ0aWR5ciIpCmxpYnJhcnkoImRwbHlyIikKbGlicmFyeSgicmVhZHIiKQpsaWJyYXJ5KCJzdHJpbmdyIikKYGBgCgpXZSdyZSBnb2luZyB0byBiZSByZW5hbWluZyBhbGwgdGhlIGNvbHVtbnMgdG8gYSBjb25zaXN0ZW50IGZvcm1hdC4KYGBge3J9CmNvbG5hbWVzKHN1cnZleSlbY29sbmFtZXMoc3VydmV5KT09IlRpbWVzdGFtcCJdIDwtICJ0aW1lX3N1Ym1pdHRlZCIKY29sbmFtZXMoc3VydmV5KVtjb2xuYW1lcyhzdXJ2ZXkpPT0iRmlyc3QsIHdlIGFyZSBnb2luZyB0byBjcmVhdGUgYSBwc2V1ZG9ueW0gZm9yIHlvdSB0byBrZWVwIHRoaXMgc3VydmV5IGFub255bW91cyAobW9yZSBvciBsZXNzKS4gV2hpY2ggcHNldWRvbnltIGdlbmVyYXRvciB3b3VsZCB5b3UgcHJlZmVyPyJdIDwtICJwc2V1ZG9ueW1fZ2VuZXJhdG9yIgpjb2xuYW1lcyhzdXJ2ZXkpW2NvbG5hbWVzKHN1cnZleSk9PSJXaGF0IGlzIHlvdXIgcHNldWRvbnltPyJdIDwtICJwc2V1ZG9ueW0iCmNvbG5hbWVzKHN1cnZleSlbY29sbmFtZXMoc3VydmV5KT09IlNleCJdIDwtICJzZXgiCmNvbG5hbWVzKHN1cnZleSlbY29sbmFtZXMoc3VydmV5KT09Ik1ham9yIl0gPC0gImFjYWRlbWljX21ham9yIgpjb2xuYW1lcyhzdXJ2ZXkpW2NvbG5hbWVzKHN1cnZleSk9PSJBY2FkZW1pYyBZZWFyIl0gPC0gImFjYWRlbWljX2xldmVsIgpjb2xuYW1lcyhzdXJ2ZXkpW2NvbG5hbWVzKHN1cnZleSk9PSJZZWFyIHlvdSB3ZXJlIGJvcm4gKFlZWVkpIl0gPC0gInllYXJfYm9ybiIKY29sbmFtZXMoc3VydmV5KVtjb2xuYW1lcyhzdXJ2ZXkpPT0iV2hpY2ggbXVzaWNhbCBpbnN0cnVtZW50cy90YWxlbnRzIGRvIHlvdSBwbGF5PyAoU2VsZWN0IGFsbCB0aGF0IGFwcGx5KSJdIDwtICJpbnN0dXJtZW50X2xpc3QiCmNvbG5hbWVzKHN1cnZleSlbY29sbmFtZXMoc3VydmV5KT09IkFydGlzdCJdIDwtICJmYXZvcml0ZV9zb25nX2FydGlzdCIKY29sbmFtZXMoc3VydmV5KVtjb2xuYW1lcyhzdXJ2ZXkpPT0iU29uZyJdIDwtICJmYXZvcml0ZV9zb25nIgpjb2xuYW1lcyhzdXJ2ZXkpW2NvbG5hbWVzKHN1cnZleSk9PSJMaW5rIHRvIHNvbmcgKG9uIFlvdXR1YmUgb3IgVmltZW8pIl0gPC0gImZhdm9yaXRlX3NvbmdfbGluayIKYGBgCgpgYGB7cn0KZm9yIChpIGluIGNvbG5hbWVzKHByZWZlcmVuY2VzKSl7CiAgZm9yIChqIGluIGkpewogICAgcHJpbnQoaSkKICB9Cn0KYGBgCgpOb3cgd2UgYXJlIGdvaW5nIHRvIGNyZWF0ZSBhIHNlcGVyYXRlIHRhYmxlIGZvciB0aGUgUGVyc29uLgoKYGBge3J9CgpQZXJzb24gPC0gdGliYmxlKHRpbWU9c3VydmV5JHRpbWVfc3VibWl0dGVkLCBwc2V1ZG9ueW1fZ2VuZXJhdG9yPXN1cnZleSRwc2V1ZG9ueW1fZ2VuZXJhdG9yLCBwc2V1ZG9ueW09c3VydmV5JHBzZXVkb255bSwgc2V4PXN1cnZleSRzZXgsIGFjYWRlbWljX21ham9yPXN1cnZleSRhY2FkZW1pY19tYWpvciwgYWNhZGVtaWNfbGV2ZWw9c3VydmV5JGFjYWRlbWljX2xldmVsLCB5ZWFyX2Jvcm49c3VydmV5JHllYXJfYm9ybikKCmBgYAoKQW5kIG5vdyBhIHRpYmJsZSBmb3IgRmF2b3JpdGUgU29uZy4KYGBge3J9CgpGYXZvcml0ZV9zb25nIDwtIHRpYmJsZShwc2V1ZG9ueW09c3VydmV5JHBzZXVkb255bSwgc29uZ19hcnRpc3Q9c3VydmV5JGZhdm9yaXRlX3NvbmdfYXJ0aXN0LCBzb25nPXN1cnZleSRmYXZvcml0ZV9zb25nLCBsaW5rPXN1cnZleSRmYXZvcml0ZV9zb25nX2xpbmspCgpgYGAKCgpQT1NJWChjdCkgLT4gKEVQT0NIKQpQT1NYSShsdCkgLT4gTG9jYWwgVGltZQoKcGFyc2VfZGF0ZXRpbWUoeCwgZm9ybWF0PSIlWTolTTolRCIsICkKYGBge3J9CiNwYXJzZV9kYXRldGltZShQZXJzb24oKQpgYGAKCgpZb3UgY2FuIGNoYW5nZSB0aGUgbGV2ZWxzLCBhcyB3ZWxsIGFzIGFzc2lnbiB0aGVtLgpgYGB7cn0KbGV2ZWxzKFBlcnNvbiRhY2FkZW1pY19tYWpvcikKYGBgCldpbGwgcHJpbnQgaXQgb3V0CgpUaGlzIHdpbGwgY2hhbmdlIGl0IHNvIHRoYXQgdGhlIGxvd2VyIGNhc2UgaW5mb3JtYXRpb24gc3lzdGVtcyB3aWxsIGJlIGNoYW5nZWQgdG8gdGhlIHVwcGVyIGNhc2Ugb25lIGFuZCByZXBsYWNlIGl0IGluIHRoZSBsZXZlbHMgYXMgd2VsbC4KYGBge3J9CmxldmVscyhQZXJzb24kYWNhZGVtaWNfbWFqb3IpW2xldmVscyhQZXJzb24kYWNhZGVtaWNfbWFqb3IpID09ICJDb21wdXRlciBpbmZvcm1hdGlvbiBzeXN0ZW1zIl0gPC0gIkNvbXB1dGVyIEluZm9ybWF0aW9uIFN5c3RlbXMiCmBgYAoK</div>
 
 
 
