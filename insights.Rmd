@@ -38,13 +38,6 @@ colnames(survey)[colnames(survey)=="Song"] <- "favorite_song"
 colnames(survey)[colnames(survey)=="Link to song (on Youtube or Vimeo)"] <- "favorite_song_link"
 ```
 
-```{r}
-for (i in colnames(preferences)){
-  for (j in i){
-    print(i)
-  }
-}
-```
 
 Now we are going to create a seperate table for the Person.
 
@@ -62,12 +55,9 @@ Favorite_song <- tibble(pseudonym=survey$pseudonym, song_artist=survey$favorite_
 ```
 
 
-POSIX(ct) -> (EPOCH)
-POSXI(lt) -> Local Time
-
-parse_datetime(x, format="%Y:%M:%D", )
+Adjust the time/date using the POSIXct.
 ```{r}
-#parse_datetime(Person()
+new_person$time <- as.POSIXct(new_person$time, format = "%m/%d/%Y %H:%M")
 ```
 
 
@@ -82,3 +72,8 @@ This will change it so that the lower case information systems will be changed t
 levels(Person$academic_major)[levels(Person$academic_major) == "Computer information systems"] <- "Computer Information Systems"
 ```
 
+
+We are going to take the Ratings and make a rating table that is just Pseudoynm -- artist_song -- ratings
+```{r}
+new_pref <- preferences %>% gather(song_name, rating, 3:45)
+```
